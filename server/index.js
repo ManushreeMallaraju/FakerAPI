@@ -1,7 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const {randomBytes} = require('crypto');
-const cors = require('cors');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+//const {randomBytes} = require('crypto');
+//const cors = require('cors');
+import axios from 'axios';
+
+import fakerApi4000 from './api/fakerApi4000.js';
 //const axios = require('axios');
 //const { default: fakerApi4000 } = require('../client/src/api/fakerApi4000');
 
@@ -12,6 +16,7 @@ app.use(cors());
 
 //const addressByID = {};
 const addresses = [];
+const energyusageArray = [];
 
 app.get('/addresses', async(req, res) => {
      res.send(addresses);
@@ -19,10 +24,21 @@ app.get('/addresses', async(req, res) => {
 
 app.get('/energyusage', async(req, res) => {
     console.log('in /energyusage console');
-    res.send('sending something');
+    res.send(req.body);
 })
 
-// make a function that make a call/get request from one of the ubicquia api endpoint
+async function fetchEnergyUsage() {
+    const res = await fakerApi4000.get('/energyusage', { 
+        params:{
+            report_type: "day"
+        },
+    });
+    console.log(res.data);
+}
+
+fetchEnergyUsage();
+
+// make a function that make a call/get request from one of the ubicquia api endpoint 
 
 // store the fetched data in a array
 
@@ -30,6 +46,7 @@ app.get('/energyusage', async(req, res) => {
 
 app.post('/addresses', async(req, res) => {
 
+    
     // var location = req.body;
 
     // addresses.push(req.body);  //third-party thing

@@ -28,8 +28,7 @@ export default {
     },
     async fetchEnergyUsageFromUbicquia() {
        console.log('Fecthing from Ubicquia api');
-       const res = await fakerApi4000.get('https://api.ubicquia.com/api/energyusage');
-       console.log(res.data);
+      
     }
   },
 
