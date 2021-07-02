@@ -5,9 +5,8 @@ import cors from 'cors';
 //const cors = require('cors');
 import axios from 'axios';
 
-import fakerApi4000 from './api/fakerApi4000.js';
+import ubicqiaEnergyUsageApi4000 from './api/ubicqiaEnergyUsageApi4000.js';
 //const axios = require('axios');
-//const { default: fakerApi4000 } = require('../client/src/api/fakerApi4000');
 
 
 const app = express();
@@ -27,8 +26,9 @@ app.get('/energyusage', async(req, res) => {
     res.send(req.body);
 })
 
+//Step 1: Making call to one of a ubicquia api endpoint
 async function fetchEnergyUsage() {
-    const res = await fakerApi4000.get('/energyusage', { 
+    const res = await ubicqiaEnergyUsageApi4000.get('/energyusage', { 
         params:{
             report_type: "day"
         },
@@ -38,15 +38,15 @@ async function fetchEnergyUsage() {
 
 fetchEnergyUsage();
 
-// make a function that make a call/get request from one of the ubicquia api endpoint 
+// Step 1: make a function that make a call/get request from one of the ubicquia api endpoint 
 
-// store the fetched data in a array
+// Step 2:store the fetched data in a array
 
-// in the app.post method below set the req.body to the data array and serve it using res.send(array)
+// Step 3:in the app.post method below set the req.body to the data array and serve it using res.send(array)
 
 app.post('/addresses', async(req, res) => {
 
-    
+
     // var location = req.body;
 
     // addresses.push(req.body);  //third-party thing

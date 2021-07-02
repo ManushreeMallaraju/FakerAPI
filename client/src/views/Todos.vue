@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import fakerApi4000 from '../api/fakerApi4000.js';
 import axios from 'axios';
 
 export default {
@@ -23,18 +22,12 @@ export default {
       console.log('In fetch address');
       const res = await axios.get('http://localhost:4000/addresses');
       console.log(res.data);  
-
       //this.setAddress.push(res.data);
     },
-    async fetchEnergyUsageFromUbicquia() {
-       console.log('Fecthing from Ubicquia api');
-      
-    }
   },
 
   created() {
     this.fetchAddress();
-    this.fetchEnergyUsageFromUbicquia();
   }
 }
 </script>
