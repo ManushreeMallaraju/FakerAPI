@@ -23,7 +23,7 @@ app.get('/addresses', async(req, res) => {
 
 app.get('/energyusage', async(req, res) => {
     console.log('in /energyusage console');
-    res.send(req.body);
+    res.send(energyusageArray);
    
 })
 
@@ -35,12 +35,9 @@ async function fetchEnergyUsage() {
         },
     });
     //console.log(res.data);
-    const fetchedData = JSON.parse(res.data);
-    energyusageArray.push(fetchedData.data);
-    for(let i in energyusageArray) {
-        const parseData = JSON.stringify(energyusageArray[i]);
-        console.log("Array values", parseData.report_type); // data: { report_type: 'day', unit: 'kWh', total: '40.457' }
-    }
+    const fetchedData = res.data;
+    energyusageArray.push(fetchedData);
+    console.log(energyusageArray);
    }
    catch (err) {
        console.log(err.message);
@@ -63,12 +60,6 @@ app.post('/addresses', async(req, res) => {
     // console.log(location);
 
     // res.status(201).send(addresses);
-})
-
-app.post('/energyusage', async(req, res) => {
-    energyusageArray = JSON.stringify(req.body);
-   //energyusageArray.push(req.body);
-    res.status(201).send(energyusageArray);
 })
 
 
