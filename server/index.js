@@ -23,10 +23,16 @@ app.get('/addresses', async (req, res) => {
     res.send(addresses);
 });
 
+//Step:3
 app.get('/energyusage', async (req, res) => {
     console.log('in /energyusage console');
     res.send(energyusageArray);
 
+})
+
+app.get('/currentnodestate', async (req, res) => {
+    console.log('in /currentnodestate console');
+    res.send(customNodeStateArray);
 })
 
 //Step 1: Making call to one of a ubicquia api endpoint
@@ -38,7 +44,8 @@ async function fetchEnergyUsage() {
             },
         });
         //console.log(res.data);
-        const fetchedData = res.data;
+        const fetchedData = res.data; 
+        //Step:2
         energyusageArray.push(fetchedData);
       //  console.log(energyusageArray);
     }
@@ -57,7 +64,7 @@ async function fetchCurrentNodeState() {
     });
     //console.log(res.data);
     customNodeStateArray.push(res.data);
-    console.log(customNodeStateArray);
+   // console.log(customNodeStateArray);
 }
 
 fetchEnergyUsage();
