@@ -17,6 +17,7 @@ app.use(cors());
 //const addressByID = {};
 const addresses = [];
 const energyusageArray = [];
+const customNodeStateArray = [];
 
 app.get('/addresses', async (req, res) => {
     res.send(addresses);
@@ -39,7 +40,7 @@ async function fetchEnergyUsage() {
         //console.log(res.data);
         const fetchedData = res.data;
         energyusageArray.push(fetchedData);
-        console.log(energyusageArray);
+      //  console.log(energyusageArray);
     }
     catch (err) {
         console.log(err.message);
@@ -54,34 +55,9 @@ async function fetchCurrentNodeState() {
             isActive: 1
         }
     });
-
-    console.log(res.data);/* 
-    {
-      id: 104,
-      latitude: '41.289268',
-      createdate: '2020-08-27 15:48:38',
-      node: '750c9409431b3e98',
-      longitude: '-74.328488',
-      HDOP: 100,
-      overrideGPS: 0,
-      deleted: '0',
-      active: 'true',
-      isActive: 1,
-      nodetype: null,
-      dev_eui: '750c9409431b3e98',
-      newnode: 1,
-      poleId: null,
-      poleTypeId: null,
-      fixtureId: null,
-      fixtureTypeId: null,
-      imagePath: null,
-      CState: 0.03,
-      C1State: 0.01,...
-      ...
-    status: 'success',
-  code: '200',
-  message: 'Operation success',
-  version: '2'*/
+    //console.log(res.data);
+    customNodeStateArray.push(res.data);
+    console.log(customNodeStateArray);
 }
 
 fetchEnergyUsage();
