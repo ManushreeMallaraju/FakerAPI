@@ -89,11 +89,13 @@ async function fetchCurrentNodeState() {
         //   if(parsedData.hasOwnProperty('id')){
         //     console.log('yeah');
         // }
-        for(var id in jsonParsedArray) {
-            if(jsonParsedArray.hasOwnProperty(id)) {
-                console.log('ID = ', + id + jsonParsedArray[id]);
-            }
-        }
+
+            
+        // for(var id in jsonParsedArray) {
+        //     if(jsonParsedArray.hasOwnProperty(id)) {
+        //         console.log('ID = ', + id + jsonParsedArray[id]);
+        //     }
+        // }
           }
           catch(err)
           {
