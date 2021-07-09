@@ -62,9 +62,45 @@ async function fetchCurrentNodeState() {
             isActive: 1
         }
     });
-    //console.log(res.data);
-    customNodeStateArray.push(res.data);
-   // console.log(customNodeStateArray);
+    // console.log(res.data);
+   customNodeStateArray.push(res.data);
+    // console.log(customNodeStateArray);
+
+   /* need to provide only these data
+      id: {val}
+      CState: 0.03,
+      C1State: 0.01,
+      VState: 118.5,
+      V1State: 0.3,
+      */
+      let formattedArray = customNodeStateArray.map(obj => {
+          console.log('inside map()');
+          try{
+        //     for (var key in obj) {
+        //         if(obj.hasOwnProperty(key)) {
+        //             console.log( key + "-->" + obj[key]);
+        //         }
+        //     }
+
+          const jsonArray = JSON.stringify(obj);
+          const jsonParsedArray = JSON.parse(jsonArray);
+        // //  console.log(parsedData);
+        // console.log('id : 2 CState value: ', parsedData.data[2].CState);
+        //   if(parsedData.hasOwnProperty('id')){
+        //     console.log('yeah');
+        // }
+        for(var id in jsonParsedArray) {
+            if(jsonParsedArray.hasOwnProperty(id)) {
+                console.log('ID = ', + id + jsonParsedArray[id]);
+            }
+        }
+          }
+          catch(err)
+          {
+              console.log(err.message);
+          }
+
+      }) 
 }
 
 fetchEnergyUsage();
@@ -84,7 +120,6 @@ app.post('/addresses', async (req, res) => {
 
     // res.status(201).send(addresses);
 })
-
 
 app.listen(4000, () => {
     console.log('Listening on 4000');
