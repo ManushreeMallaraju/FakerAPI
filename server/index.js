@@ -47,7 +47,16 @@ async function fetchEnergyUsage() {
         const fetchedData = res.data; 
         //Step:2
         energyusageArray.push(fetchedData);
-      //  console.log(energyusageArray);
+    //    console.log(energyusageArray);
+
+    // let total = [];
+    //  for(var key in res['data']){
+    //     // total.push(res['data'][key]);
+    //      console.log('Values', res['data'][key]);
+    //   }
+    
+    const total = Object.values(res.data).map(({ total }) => total);
+    console.log('Total ', total);
     }
     catch (err) {
         console.log(err.message);
@@ -56,15 +65,15 @@ async function fetchEnergyUsage() {
 
 //fetch data from Node:/currentnodestate endpoint
 async function fetchCurrentNodeState() {
-    console.log("inside fetchCurrentNodeState() ")
+    // console.log("inside fetchCurrentNodeState() ")
     const res = await ubicquiaCurrentNodeState4000.get('/currentnodestate', {
         params: {
             isActive: 1
         }
     });
-    // console.log(res.data);
-   customNodeStateArray.push(res.data);
-    // console.log(customNodeStateArray);
+    // console.log(typeof(res.data));
+    customNodeStateArray.push(res.data);
+    // console.log(customNodeStateArray.length);
 
    /* need to provide only these data
       id: {val}
@@ -73,36 +82,25 @@ async function fetchCurrentNodeState() {
       VState: 118.5,
       V1State: 0.3,
       */
-      let formattedArray = customNodeStateArray.map(obj => {
-          console.log('inside map()');
-          try{
-        //     for (var key in obj) {
-        //         if(obj.hasOwnProperty(key)) {
-        //             console.log( key + "-->" + obj[key]);
-        //         }
-        //     }
 
-          const jsonArray = JSON.stringify(obj);
-          const jsonParsedArray = JSON.parse(jsonArray);
-        // //  console.log(parsedData);
-        // console.log('id : 2 CState value: ', parsedData.data[2].CState);
-        //   if(parsedData.hasOwnProperty('id')){
-        //     console.log('yeah');
-        // }
 
-            
-        // for(var id in jsonParsedArray) {
-        //     if(jsonParsedArray.hasOwnProperty(id)) {
-        //         console.log('ID = ', + id + jsonParsedArray[id]);
-        //     }
-        // }
-          }
-          catch(err)
-          {
-              console.log(err.message);
-          }
+    //   let formattedArray = customNodeStateArray.map(obj => {
+    //       console.log('inside map()');
+    //       console.log('object id: ',obj[0]);
+    //       try{
+    //     //     for (var key in obj) {
+    //     //         if(obj.hasOwnProperty(key)) {
+    //     //             console.log( key + "-->" + obj[key]);
+    //     //         }
+    //     //     }
 
-      }) 
+    //       const jsonArray = JSON.stringify(obj);
+    //       const jsonParsedArray = JSON.parse(jsonArray);
+    //     //  console.log(parsedData);
+    //     console.log('id : 2 CState value: ', jsonParsedArray.data[2].CState);
+    //       if(parsedData.hasOwnProperty('id')){
+    //         console.log('yeah');
+    //     }
 }
 
 fetchEnergyUsage();
