@@ -43,20 +43,10 @@ async function fetchEnergyUsage() {
                 report_type: "day"
             },
         });
-        //console.log(res.data);
-        const fetchedData = res.data; 
-        //Step:2
-        energyusageArray.push(fetchedData);
-    //    console.log(energyusageArray);
-
-    // let total = [];
-    //  for(var key in res['data']){
-    //     // total.push(res['data'][key]);
-    //      console.log('Values', res['data'][key]);
-    //   }
-    
-    const total = Object.values(res.data).map(({ total }) => total);
-    console.log('Total ', total);
+        const fetchedData = res.data.data.total;
+        const jsonObj = {total: fetchedData};
+        console.log(jsonObj);
+        energyusageArray.push(jsonObj);         
     }
     catch (err) {
         console.log(err.message);
@@ -82,7 +72,6 @@ async function fetchCurrentNodeState() {
       VState: 118.5,
       V1State: 0.3,
       */
-
 
     //   let formattedArray = customNodeStateArray.map(obj => {
     //       console.log('inside map()');
