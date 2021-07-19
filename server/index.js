@@ -18,6 +18,7 @@ app.use(cors());
 const addresses = [];
 const energyusageArray = [];
 const customNodeStateArray = [];
+const formattedNodeStateArray = [];
 
 app.get('/addresses', async (req, res) => {
     res.send(addresses);
@@ -32,7 +33,7 @@ app.get('/energyusage', async (req, res) => {
 
 app.get('/currentnodestate', async (req, res) => {
     console.log('in /currentnodestate console');
-    res.send(customNodeStateArray);
+    res.send(formattedNodeStateArray);
 })
 
 //Step 1: Making call to one of a ubicquia api endpoint
@@ -45,7 +46,7 @@ async function fetchEnergyUsage() {
         });
         const fetchedData = res.data.data.total;
         const jsonObj = {total: fetchedData};
-        console.log(jsonObj);
+        // console.log(jsonObj);
         energyusageArray.push(jsonObj);         
     }
     catch (err) {
@@ -61,9 +62,9 @@ async function fetchCurrentNodeState() {
             isActive: 1
         }
     });
-    // console.log(typeof(res.data));
-    customNodeStateArray.push(res.data);
-    // console.log(customNodeStateArray.length);
+   // const data = res.data.data;
+    customNodeStateArray.push(res.data.data);
+    // console.log(customNodeStateArray);
 
    /* need to provide only these data
       id: {val}
@@ -72,26 +73,36 @@ async function fetchCurrentNodeState() {
       VState: 118.5,
       V1State: 0.3,
       */
-
-    //   let formattedArray = customNodeStateArray.map(obj => {
-    //       console.log('inside map()');
-    //       console.log('object id: ',obj[0]);
-    //       try{
-    //     //     for (var key in obj) {
-    //     //         if(obj.hasOwnProperty(key)) {
-    //     //             console.log( key + "-->" + obj[key]);
-    //     //         }
-    //     //     }
-
-    //       const jsonArray = JSON.stringify(obj);
-    //       const jsonParsedArray = JSON.parse(jsonArray);
-    //     //  console.log(parsedData);
-    //     console.log('id : 2 CState value: ', jsonParsedArray.data[2].CState);
-    //       if(parsedData.hasOwnProperty('id')){
-    //         console.log('yeah');
+      
+    //   for (var i = 0; i < customNodeStateArray.length; i++) {
+    //     if(customNodeStateArray[i].hasOwnProperty('CState')){
+    //         console.log('The CState value : ', customNodeStateArray[i].CState);
     //     }
-}
+    //     //Do something
+    // }
 
+      customNodeStateArray.map(obj => {
+          console.log('inside map()');
+         // console.log('object id: ',obj[1]);
+          try{
+            for (var i=0;i<customNodeStateArray[0].length;i++){
+               // console.log('object id: ',obj[i].CState);
+               if(obj[i].hasOwnProperty('id' && 'CState' && 'C1State' && 'VState' && 'V1State'))
+               {
+                // console.log('object id: ',obj[i].id);
+                const jsonObj = [{id: obj[i].id, CState: obj[i].CState, C1State: obj[i].C1State, VState: obj[i].VState, V1State: obj[i].V1State}];
+                // console.log(jsonObj);
+                formattedNodeStateArray.push(jsonObj);
+               }
+            }
+          }
+          catch(err) {
+            console.log(err.message);
+          }
+      })
+   
+    }
+    
 fetchEnergyUsage();
 fetchCurrentNodeState();
 // Step 1: make a function that make a call/get request from one of the ubicquia api endpoint 
