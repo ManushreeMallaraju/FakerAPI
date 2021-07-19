@@ -90,7 +90,7 @@ async function fetchCurrentNodeState() {
                if(obj[i].hasOwnProperty('id' && 'CState' && 'C1State' && 'VState' && 'V1State'))
                {
                 // console.log('object id: ',obj[i].id);
-                const jsonObj = [{id: obj[i].id, CState: obj[i].CState, C1State: obj[i].C1State, VState: obj[i].VState, V1State: obj[i].V1State}];
+                const jsonObj = {id: obj[i].id, CState: obj[i].CState, C1State: obj[i].C1State, VState: obj[i].VState, V1State: obj[i].V1State};
                 // console.log(jsonObj);
                 formattedNodeStateArray.push(jsonObj);
                }
@@ -100,7 +100,6 @@ async function fetchCurrentNodeState() {
             console.log(err.message);
           }
       })
-   
     }
     
 fetchEnergyUsage();
