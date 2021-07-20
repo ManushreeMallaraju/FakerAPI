@@ -64,7 +64,6 @@ async function fetchCurrentNodeState() {
     });
     currentNodeStateArray.push(res.data.data);
 
-
     /* need to provide only these data, on /currentnodestate endpoint
       id: {val}
       CState: 0.03,
