@@ -9,16 +9,18 @@ app.use(bodyParser());
 app.use(cors());
 
 
-const nodesByID = {};
+const nodesByID = [];
 
 app.get('/nodes/{id}', (req, res) => {
-
+   
 });
 
 async function fetchNodeByID() {
     try{
-       const res = await ubicquiaNodeByIDApi4001.get('/nodes/1');
-       console.log(res.data);
+       const res = await ubicquiaNodeByIDApi4001.get('/nodes/4');
+       // console.log(res.data.data);
+       nodesByID.push(res.data.data);
+       console.log(nodesByID);
     }
     catch(err) {
         console.log(err.message);
