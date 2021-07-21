@@ -12,23 +12,26 @@ app.use(cors());
 const nodesByID = [];
 //const nodeID = 4;
 
-app.get('/nodes', (req, res) => { /* this endpoint should be '/nodes/{id}' --> 'id' from client side*/
+app.get('/nodes/:id', (req, res) => { /* this endpoint should be '/nodes/3' --> 'id' from client side*/
+   //console.log(req.params.id);
+   fetchNodeByID(req.params.id);
    res.send(nodesByID);
 });
 
-async function fetchNodeByID() {
+async function fetchNodeByID(id) {
     try{
-       const res = await ubicquiaNodeByIDApi4001.get('/nodes/4');
+        console.log(id);
+       const res = await ubicquiaNodeByIDApi4001.get(`/nodes/${id}`);
        // console.log(res.data.data);
        nodesByID.push(res.data.data);
-       console.log(nodesByID);
+    //    console.log(nodesByID);
     }
     catch(err) {
         console.log(err.message);
     }
 }
 
-fetchNodeByID();
+
 
 app.listen(4001, () => {
     console.log('Listening on 4001');
