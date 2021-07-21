@@ -10,9 +10,10 @@ app.use(cors());
 
 
 const nodesByID = [];
+//const nodeID = 4;
 
-app.get('/nodes/{id}', (req, res) => {
-   
+app.get('/nodes', (req, res) => { /* this endpoint should be '/nodes/{id}' --> 'id' from client side*/
+   res.send(nodesByID);
 });
 
 async function fetchNodeByID() {
